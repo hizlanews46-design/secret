@@ -12,6 +12,9 @@ It is not an autonomous universal account scraper. The original blueprint's cred
 - **Pluggable boundaries:** `ProviderAdapter` defines the consent-first provider contract, while `IVirtualCardProvider` and `MockVirtualCardAdapter` define the separately reviewed payment extension. Defaults never contact a provider or card network.
 - **Supabase RLS and indexes:** user vault, workflow, and audit records are scoped to `auth.uid()` and indexed for per-user reads.
 - **Operational readiness:** CI runs tests, TypeScript checks, and production builds. `/api/health` exposes a no-store health response. Security headers include HSTS, CSP, frame denial, and permissions policy.
+- **Partner safety gate:** Partner agreements and a disabled-by-default marketplace feature flag are protected by RLS. No real transaction path exists; the mock payment adapter remains the only default.
+- **Trust and launch pages:** Security, privacy, terms, support, recovery, and onboarding pages explain the product boundaries to users.
+- **Redacted observability:** Secret-like fields are removed before structured metadata reaches logs, with automated tests covering nested values.
 - **Deployment hygiene:** `/manus-routes.json` exposes only page routes, and browser Supabase initialization remains build-safe when local environment variables are absent.
 
 ## Explicit safety boundary
@@ -25,6 +28,7 @@ This repository does **not** scrape credentials, inspect email bodies, automate 
 3. Apply the SQL migrations in `supabase/migrations/` to the intended Supabase project. The orchestration migration adds persistent workflows, audit events, indexes, and RLS. If the project already owns a different `public.profiles` schema, also apply `20261014020000_shared_profiles_compat.sql`.
 4. Configure the same two public environment variables in Vercel. The connected deployment uses the `secret` Supabase project in `ap-southeast-1` (ref `tqzchcbbkwycjhaegmgi`).
 5. Verify `GET /api/health` returns `{ "status": "ok" }` after deployment.
+6. Run `pnpm verify:migrations` before applying schema changes or cutting a release.
 
 ## Checks
 
