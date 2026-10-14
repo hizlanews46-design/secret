@@ -22,8 +22,8 @@ This repository does **not** scrape credentials, inspect email bodies, automate 
 
 1. Copy `.env.example` to `.env.local` and add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 2. Run `pnpm install` and `pnpm dev`.
-3. Apply both SQL migrations in `supabase/migrations/` to the intended Supabase project. The second migration adds persistent workflows, audit events, indexes, and RLS.
-4. Configure the same two public environment variables in Vercel.
+3. Apply the SQL migrations in `supabase/migrations/` to the intended Supabase project. The orchestration migration adds persistent workflows, audit events, indexes, and RLS. If the project already owns a different `public.profiles` schema, also apply `20261014020000_shared_profiles_compat.sql`.
+4. Configure the same two public environment variables in Vercel. The connected deployment currently uses the `New Banglarvoice` Supabase project in `ap-southeast-1`; its existing shared profile schema is preserved by the compatibility migration.
 5. Verify `GET /api/health` returns `{ "status": "ok" }` after deployment.
 
 ## Checks
