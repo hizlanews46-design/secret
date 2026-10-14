@@ -1,5 +1,5 @@
 export type ServiceStatus = "connected" | "discovered" | "not-connected";
-export type WorkflowStatus = "queued" | "awaiting-consent" | "running" | "completed" | "cancelled";
+export type WorkflowStatus = "queued" | "awaiting-consent" | "running" | "awaiting-user" | "completed" | "cancelled" | "failed";
 
 export type ServiceDefinition = {
   id: string;
@@ -9,6 +9,7 @@ export type ServiceDefinition = {
   variables: string[];
   status: ServiceStatus;
   color: string;
+  capabilities?: readonly ("oauth" | "manual-secret" | "dynamic-registration" | "human-verification" | "rotation" | "revoke")[];
 };
 
 export type WorkflowRun = {

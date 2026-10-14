@@ -1,0 +1,11 @@
+{
+  "name": "Vaultline — Zero-Trust Variable Vault",
+  "short_name": "Vaultline",
+  "description": "A consent-first, client-encrypted integration workspace.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7fbf8",
+  "theme_color": "#10231f",
+  "lang": "en",
+  "icons": []
+}
