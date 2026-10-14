@@ -30,6 +30,9 @@ export default function Dashboard({ email, userId }: { email: string; userId: st
     supabase.from("user_vault").select("id,label,variable_name,encrypted_value,created_at,updated_at").order("created_at", { ascending: false }).then(({ data, error }) => {
       if (error) setMessage(error.message); else setRows((data ?? []) as Row[]);
     });
+    supabase.from("workflow_runs").select("id,service_id,service_name,kind,status,detail,created_at").order("created_at", { ascending: false }).limit(20).then(({ data, error }) => {
+      if (!error) setWorkflows((data ?? []).map((row) => ({ id: row.id, serviceId: row.service_id, serviceName: row.service_name, kind: row.kind, status: row.status, detail: row.detail, createdAt: row.created_at })) as WorkflowRun[]);
+    });
     new MockVirtualCardAdapter().listCards().then(setCards);
   }, []);
 
@@ -79,10 +82,14 @@ export default function Dashboard({ email, userId }: { email: string; userId: st
     if (!error) setRows((current) => current.filter((row) => row.id !== id)); else setMessage(error.message);
   }
 
-  function stageWorkflow(service: ServiceDefinition, kind: WorkflowRun["kind"]) {
-    setWorkflows((current) => [createMockWorkflow(service, kind), ...current]);
+  async function stageWorkflow(service: ServiceDefinition, kind: WorkflowRun["kind"]) {
+    const workflow = createMockWorkflow(service, kind);
+    const { data, error } = await supabase.from("workflow_runs").insert({ user_id: userId, service_id: service.id, service_name: service.name, kind, status: workflow.status, detail: workflow.detail }).select("id,service_id,service_name,kind,status,detail,created_at").single();
+    const persisted = data ? { id: data.id, serviceId: data.service_id, serviceName: data.service_name, kind: data.kind, status: data.status, detail: data.detail, createdAt: data.created_at } as WorkflowRun : workflow;
+    setWorkflows((current) => [persisted, ...current]);
+    if (!error) await supabase.from("audit_events").insert({ user_id: userId, action: `workflow.${kind}.staged`, resource_type: "workflow_run", resource_id: persisted.id, metadata: { service_id: service.id } });
     setActiveService(null);
-    setMessage(`${service.name} ${kind} staged. Nothing is sent to the provider.`);
+    setMessage(error ? `Workflow preview staged locally; apply the orchestration migration to persist it.` : `${service.name} ${kind} staged. Nothing is sent to the provider.`);
   }
 
   return <main className="grain min-h-screen">
