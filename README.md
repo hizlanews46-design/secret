@@ -8,6 +8,7 @@ It is not an autonomous universal account scraper. The original blueprint's cred
 
 - **Client-side vault:** Argon2id derives an AES-256-GCM key from a passphrase. Plaintext values are encrypted before Supabase writes, and the passphrase is never persisted.
 - **Service catalog:** GitHub, OpenAI, Stripe, Supabase, and Vercel are represented as typed service definitions with status and variable requirements.
+- **Public provider catalog:** `/providers` lists capability badges and links to official setup pages without scraping or bypassing provider controls.
 - **Persistent orchestration queue:** consent-gated discovery, provisioning, and rotation previews persist to `workflow_runs` with RLS and audit records in `audit_events`.
 - **Pluggable boundaries:** `ProviderAdapter` defines the consent-first provider contract, while `IVirtualCardProvider` and `MockVirtualCardAdapter` define the separately reviewed payment extension. Defaults never contact a provider or card network.
 - **Supabase RLS and indexes:** user vault, workflow, and audit records are scoped to `auth.uid()` and indexed for per-user reads.
@@ -15,6 +16,7 @@ It is not an autonomous universal account scraper. The original blueprint's cred
 - **Partner safety gate:** Partner agreements and a disabled-by-default marketplace feature flag are protected by RLS. No real transaction path exists; the mock payment adapter remains the only default.
 - **Trust and launch pages:** Security, privacy, terms, support, recovery, and onboarding pages explain the product boundaries to users.
 - **Redacted observability:** Secret-like fields are removed before structured metadata reaches logs, with automated tests covering nested values.
+- **PWA:** Manifest, branded icon, offline-safe public shell, responsive pages, and an install prompt are included. Native APK packaging is intentionally out of scope.
 - **Deployment hygiene:** `/manus-routes.json` exposes only page routes, and browser Supabase initialization remains build-safe when local environment variables are absent.
 
 ## Explicit safety boundary
@@ -29,6 +31,7 @@ This repository does **not** scrape credentials, inspect email bodies, automate 
 4. Configure the same two public environment variables in Vercel. The connected deployment uses the `secret` Supabase project in `ap-southeast-1` (ref `tqzchcbbkwycjhaegmgi`).
 5. Verify `GET /api/health` returns `{ "status": "ok" }` after deployment.
 6. Run `pnpm verify:migrations` before applying schema changes or cutting a release.
+7. Use [`docs/owner-action-checklist.md`](docs/owner-action-checklist.md) for the two owner-only actions; the agent does not delete projects or rotate credentials.
 
 ## Checks
 
@@ -41,3 +44,5 @@ pnpm build
 Google OAuth is supported through Supabase Auth when enabled in the Supabase dashboard; email/password works without any provider secret in this repository.
 
 See [`docs/production-saas-readiness-plan.md`](docs/production-saas-readiness-plan.md) for the production roadmap, mobile/PWA strategy, safety boundaries, and reusable coding-agent instruction.
+
+See [`docs/partner-trust-report.md`](docs/partner-trust-report.md) for the privacy-safe partner report template.

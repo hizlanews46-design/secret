@@ -21,4 +21,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
       - run: pnpm typecheck
+      - run: pnpm verify:migrations
       - run: pnpm build
+      - name: Production health smoke test
+        if: github.ref == 'refs/heads/main'
+        run: curl --fail --silent --show-error --retry 5 --retry-delay 5 https://secret-iota-ten.vercel.app/api/health

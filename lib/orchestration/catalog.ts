@@ -10,6 +10,7 @@ export type ServiceDefinition = {
   status: ServiceStatus;
   color: string;
   capabilities?: readonly ("oauth" | "manual-secret" | "dynamic-registration" | "human-verification" | "rotation" | "revoke")[];
+  officialUrl?: string;
 };
 
 export type WorkflowRun = {
@@ -23,11 +24,11 @@ export type WorkflowRun = {
 };
 
 export const serviceCatalog: ServiceDefinition[] = [
-  { id: "github", name: "GitHub", category: "Developer tools", description: "Personal access token and repository automation variables.", variables: ["GITHUB_TOKEN", "GITHUB_OWNER"], status: "connected", color: "#1f2937" },
-  { id: "openai", name: "OpenAI", category: "AI platform", description: "API access for model-powered products and internal tools.", variables: ["OPENAI_API_KEY", "OPENAI_ORG_ID"], status: "discovered", color: "#10a37f" },
-  { id: "stripe", name: "Stripe", category: "Payments", description: "Sandbox integration variables with payment execution disabled.", variables: ["STRIPE_PUBLISHABLE_KEY", "STRIPE_SECRET_KEY"], status: "not-connected", color: "#635bff" },
-  { id: "supabase", name: "Supabase", category: "Data", description: "Project URL and client keys for a connected backend.", variables: ["SUPABASE_URL", "SUPABASE_ANON_KEY"], status: "connected", color: "#3ecf8e" },
-  { id: "vercel", name: "Vercel", category: "Deployment", description: "Project and deployment environment variables.", variables: ["VERCEL_TOKEN", "VERCEL_PROJECT_ID"], status: "discovered", color: "#111111" },
+  { id: "github", name: "GitHub", category: "Developer tools", description: "Personal access token and repository automation variables.", variables: ["GITHUB_TOKEN", "GITHUB_OWNER"], status: "connected", color: "#1f2937", capabilities: ["oauth", "manual-secret", "rotation", "revoke"], officialUrl: "https://github.com/settings/tokens" },
+  { id: "openai", name: "OpenAI", category: "AI platform", description: "API access for model-powered products and internal tools.", variables: ["OPENAI_API_KEY", "OPENAI_ORG_ID"], status: "discovered", color: "#10a37f", capabilities: ["manual-secret", "revoke"], officialUrl: "https://platform.openai.com/api-keys" },
+  { id: "stripe", name: "Stripe", category: "Payments", description: "Sandbox integration variables with payment execution disabled.", variables: ["STRIPE_PUBLISHABLE_KEY", "STRIPE_SECRET_KEY"], status: "not-connected", color: "#635bff", capabilities: ["oauth", "manual-secret", "human-verification", "revoke"], officialUrl: "https://dashboard.stripe.com/apikeys" },
+  { id: "supabase", name: "Supabase", category: "Data", description: "Project URL and client keys for a connected backend.", variables: ["SUPABASE_URL", "SUPABASE_ANON_KEY"], status: "connected", color: "#3ecf8e", capabilities: ["manual-secret", "rotation", "revoke"], officialUrl: "https://supabase.com/dashboard" },
+  { id: "vercel", name: "Vercel", category: "Deployment", description: "Project and deployment environment variables.", variables: ["VERCEL_TOKEN", "VERCEL_PROJECT_ID"], status: "discovered", color: "#111111", capabilities: ["oauth", "manual-secret", "rotation", "revoke"], officialUrl: "https://vercel.com/account/tokens" },
 ];
 
 export function createMockWorkflow(service: ServiceDefinition, kind: WorkflowRun["kind"]): WorkflowRun {
