@@ -17,6 +17,8 @@ It is not an autonomous universal account scraper. The original blueprint's cred
 - **Trust and launch pages:** Security, privacy, terms, support, recovery, and onboarding pages explain the product boundaries to users.
 - **Redacted observability:** Secret-like fields are removed before structured metadata reaches logs, with automated tests covering nested values.
 - **PWA:** Manifest, branded icon, offline-safe public shell, responsive pages, and an install prompt are included. Native APK packaging is intentionally out of scope.
+- **Legal and trust center:** Versioned legal pages live under `/legal/*`, with `/trust`, `/status`, `/pricing`, `/roadmap`, `/changelog`, `/docs`, and `/features/*` public surfaces.
+- **Consent and quotas:** Granular optional-cookie consent is persisted in a first-party cookie; Supabase foundations exist for consent audit records, plan limits, usage counters, tickets, and auth audit events. Analytics/marketing scripts are not loaded.
 - **Deployment hygiene:** `/manus-routes.json` exposes only page routes, and browser Supabase initialization remains build-safe when local environment variables are absent.
 
 ## Explicit safety boundary
@@ -32,6 +34,7 @@ This repository does **not** scrape credentials, inspect email bodies, automate 
 5. Verify `GET /api/health` returns `{ "status": "ok" }` after deployment.
 6. Run `pnpm verify:migrations` before applying schema changes or cutting a release.
 7. Use [`docs/owner-action-checklist.md`](docs/owner-action-checklist.md) for the two owner-only actions; the agent does not delete projects or rotate credentials.
+8. Review `/dashboard/usage` for the transparent free-plan quota defaults and `/api/status` for component status.
 
 ## Checks
 

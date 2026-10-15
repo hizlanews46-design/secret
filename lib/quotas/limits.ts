@@ -1,0 +1,3 @@
+export type PlanLimit = { apiCallsPerDay:number; storageBytes:number; seats:number; integrations:number; rateBurst:number };
+export function quotaState(limit: PlanLimit, used: number){ const remaining=Math.max(0,limit.apiCallsPerDay-used); return { used, limit: limit.apiCallsPerDay, remaining, exhausted: remaining===0, percent: Math.min(100, Math.round((used/limit.apiCallsPerDay)*100)) }; }
+export function quotaError(metric:string,state:ReturnType<typeof quotaState>){ return { code:"QUOTA_EXCEEDED", metric, used:state.used, limit:state.limit, upgradePath:"Review available plans before enabling paid usage." }; }

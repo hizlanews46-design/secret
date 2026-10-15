@@ -1,0 +1,57 @@
+# Route inventory
+
+Generated from the current App Router source.
+
+- `/`
+- `/about`
+- `/admin`
+- `/admin/audit`
+- `/admin/flags`
+- `/admin/partners`
+- `/admin/telemetry`
+- `/admin/users`
+- `/api/health`
+- `/api/status`
+- `/api/tickets`
+- `/api/usage`
+- `/api/webhooks`
+- `/blog`
+- `/changelog`
+- `/contact`
+- `/dashboard`
+- `/dashboard/usage`
+- `/docs`
+- `/docs/integrations`
+- `/features`
+- `/features/provider-catalog`
+- `/features/vault`
+- `/features/workflows`
+- `/integrations`
+- `/legal/acceptable-use`
+- `/legal/cookies`
+- `/legal/dpa`
+- `/legal/privacy`
+- `/legal/refund`
+- `/legal/sla`
+- `/legal/terms`
+- `/login`
+- `/mfa`
+- `/onboarding`
+- `/pricing`
+- `/privacy`
+- `/providers`
+- `/recovery`
+- `/reset-password`
+- `/roadmap`
+- `/security`
+- `/settings/billing`
+- `/settings/notifications`
+- `/settings/profile`
+- `/settings/security`
+- `/signup`
+- `/status`
+- `/support`
+- `/terms`
+- `/tickets`
+- `/trust`
+- `/verify-email`
