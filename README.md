@@ -19,6 +19,7 @@ It is not an autonomous universal account scraper. The original blueprint's cred
 - **PWA:** Manifest, branded icon, offline-safe public shell, responsive pages, and an install prompt are included. Native APK packaging is intentionally out of scope.
 - **Legal and trust center:** Versioned legal pages live under `/legal/*`, with `/trust`, `/status`, `/pricing`, `/roadmap`, `/changelog`, `/docs`, and `/features/*` public surfaces.
 - **Consent and quotas:** Granular optional-cookie consent is persisted in a first-party cookie; Supabase foundations exist for consent audit records, plan limits, usage counters, tickets, and auth audit events. Analytics/marketing scripts are not loaded.
+- **Environment provisioning:** The public Supabase variables and derived site URL are provisioned in Vercel by environment scope. See [`docs/env-registry.md`](docs/env-registry.md), [`docs/env-verification.md`](docs/env-verification.md), and [`docs/human-actions.md`](docs/human-actions.md). OAuth provider secrets, SMTP, Turnstile, and billing remain human-configured and are never fabricated.
 - **Deployment hygiene:** `/manus-routes.json` exposes only page routes, and browser Supabase initialization remains build-safe when local environment variables are absent.
 
 ## Explicit safety boundary
