@@ -29,6 +29,12 @@ Audit date: 2026-10-16. Secret values are intentionally omitted.
 | Phase 3 device login | Live device-code round-trip | NOT DONE — server endpoint remains intentionally disabled; CLI does not claim a session |
 | Phase 4 hygiene badge | Local route build and SVG-safe output path | PASS — metadata-only route; no secret or ciphertext fields |
 | Phase 4 public status metadata | Audited public rotation/RLS source | NOT DONE — badge honestly shows review required/not recorded by default |
+| Phase 5 SaaS skeleton | `pnpm check`, 7 test files, 14 tests, strict build | PASS — no paid/proprietary dependency added |
+| Stripe webhook | POST without configured secret | NOT DONE — returns disabled; no billing credential configured |
+| Turnstile | Server verifier without configured secret | NOT DONE — explicit no-op until human configures a key |
+| SMTP | Transactional email boundary | NOT DONE — no provider configured and no delivery claimed |
+| CLI device auth | `POST /api/cli/device/start` | NOT DONE — returns disabled by design |
+| OAuth authorization cards | Feature-gated UI path | NOT VERIFIED — guide is default OFF until console setup is human-approved |
 
 ## Interpretation
 
@@ -43,3 +49,5 @@ The Phase 2 connector panel and adapters are also implemented but remain disable
 The Phase 3 CLI is publish-ready but not published to npm. See [`docs/phase-3-report.md`](phase-3-report.md). Public package publication and server-backed device login remain separate authorized actions.
 
 The Phase 4 badge is live but conservative by default. See [`docs/phase-4-report.md`](phase-4-report.md). It does not claim proof until an audited public metadata source is configured.
+
+Phase 5 adds safe no-op boundaries only. See [`docs/phase-5-report.md`](phase-5-report.md). Credentials and console setup remain human-gated.

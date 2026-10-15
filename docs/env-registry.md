@@ -11,6 +11,9 @@ Last audited: 2026-10-16. Values are intentionally omitted. Secret values are ne
 | `NEXT_PUBLIC_SITE_URL` | Auth redirect convention and deployment metadata | C | Public derived | local/preview/production | Canonical URL / Vercel deployment URL | Yes | Set in Vercel production, preview, development |
 | `NEXT_PUBLIC_ENABLE_3D_TRUST_LAYER` | `components/trust-chamber.tsx:11` | A | Public feature flag | local/preview/production | Vercel/local configuration | Yes | Not set; defaults OFF by design |
 | `NEXT_PUBLIC_ENABLE_CONNECTORS` | `components/connector-panel.tsx:7` | A | Public feature flag | local/preview/production | Vercel/local configuration | Yes | Not set; defaults OFF by design |
+| `NEXT_PUBLIC_ENABLE_AUTH_SETUP_GUIDE` | `components/authorization-card.tsx:5` | A | Public feature flag | local/preview/production | Vercel/local configuration | Yes | Not set; defaults OFF by design |
+| `VAULTLINE_ENABLE_DEVICE_AUTH` | `app/api/cli/device/start/route.ts:4` | C | Server feature flag | production only | Owner-approved auth rollout | No | Not set; device auth disabled |
+| `STRIPE_WEBHOOK_SECRET` | `app/api/billing/webhook/route.ts:5` | B | Secret | production billing only | Stripe dashboard | No | Not configured; webhook returns disabled |
 | `VAULTLINE_PUBLIC_RLS_STATUS` | `app/api/badge/[project]/route.ts:7` | C | Public metadata | production badge only | Owner-audited status source | No | Empty; badge shows review required |
 | `VAULTLINE_PUBLIC_LAST_ROTATION` | `app/api/badge/[project]/route.ts:6` | C | Public metadata | production badge only | Owner-audited rotation source | No | Empty; badge shows not recorded |
 | `NEXT_PUBLIC_APP_URL` | `.env.example` only; no runtime reference found | C | Public derived | local only if a future module adopts it | Local app URL | Yes | Removed from active registry; use `NEXT_PUBLIC_SITE_URL` instead |
