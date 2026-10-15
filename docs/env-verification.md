@@ -25,6 +25,8 @@ Audit date: 2026-10-16. Secret values are intentionally omitted.
 | Phase 1 mobile Lighthouse | Feature-on deployed preview | NOT VERIFIED — flag remains OFF pending a real-device performance review |
 | Phase 2 connector contract | `pnpm test`, strict typecheck, default-off/feature-on builds | PASS — 6 test files, 12 tests; tokens browser-only and ciphertext validation covered |
 | Phase 2 provider health | Live GitHub/Vercel token test | NOT VERIFIED — no human-provided token; no dashboard/provider action performed |
+| Phase 3 CLI | Node syntax + local init/run/rotate smoke test | PASS — local AES-256-GCM vault flow works without printing values |
+| Phase 3 device login | Live device-code round-trip | NOT DONE — server endpoint remains intentionally disabled; CLI does not claim a session |
 
 ## Interpretation
 
@@ -35,3 +37,5 @@ A `PASS` is machine-checked. `PROVISIONED` means a safe configuration write was 
 The 3D trust layer is implemented but remains disabled by default. See [`docs/phase-1-report.md`](phase-1-report.md). No Vercel environment change is required to preserve the default-off invariant.
 
 The Phase 2 connector panel and adapters are also implemented but remain disabled by default. See [`docs/phase-2-report.md`](phase-2-report.md). Provider tokens must be entered by the user in an enabled preview or local browser session and are never requested in chat.
+
+The Phase 3 CLI is publish-ready but not published to npm. See [`docs/phase-3-report.md`](phase-3-report.md). Public package publication and server-backed device login remain separate authorized actions.

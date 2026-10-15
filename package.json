@@ -2,6 +2,9 @@
   "name": "zero-trust-vault",
   "version": "1.0.0",
   "private": true,
+  "bin": {
+    "vaultline": "bin/vaultline.mjs"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
