@@ -21,7 +21,13 @@ Audit date: 2026-10-16. Secret values are intentionally omitted.
 | SMTP | Confirmation/reset email | NOT DONE — no SMTP provider configured |
 | Turnstile | Challenge verification | NOT DONE — no site/secret keys configured |
 | Stripe | Test-mode API check | NOT DONE — payment is disabled and no Stripe secret is configured |
+| Phase 1 3D trust layer | Feature-on build with temporary shell flag | PASS — lazy client scene, static fallback, reduced-motion path, and strict build verified |
+| Phase 1 mobile Lighthouse | Feature-on deployed preview | NOT VERIFIED — flag remains OFF pending a real-device performance review |
 
 ## Interpretation
 
 A `PASS` is machine-checked. `PROVISIONED` means a safe configuration write was issued and must be followed by the READY deployment check. `NOT VERIFIED` and `NOT DONE` are intentionally not represented as complete.
+
+## Phase 1 release note
+
+The 3D trust layer is implemented but remains disabled by default. See [`docs/phase-1-report.md`](phase-1-report.md). No Vercel environment change is required to preserve the default-off invariant.
