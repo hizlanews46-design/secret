@@ -27,6 +27,8 @@ Audit date: 2026-10-16. Secret values are intentionally omitted.
 | Phase 2 provider health | Live GitHub/Vercel token test | NOT VERIFIED — no human-provided token; no dashboard/provider action performed |
 | Phase 3 CLI | Node syntax + local init/run/rotate smoke test | PASS — local AES-256-GCM vault flow works without printing values |
 | Phase 3 device login | Live device-code round-trip | NOT DONE — server endpoint remains intentionally disabled; CLI does not claim a session |
+| Phase 4 hygiene badge | Local route build and SVG-safe output path | PASS — metadata-only route; no secret or ciphertext fields |
+| Phase 4 public status metadata | Audited public rotation/RLS source | NOT DONE — badge honestly shows review required/not recorded by default |
 
 ## Interpretation
 
@@ -39,3 +41,5 @@ The 3D trust layer is implemented but remains disabled by default. See [`docs/ph
 The Phase 2 connector panel and adapters are also implemented but remain disabled by default. See [`docs/phase-2-report.md`](phase-2-report.md). Provider tokens must be entered by the user in an enabled preview or local browser session and are never requested in chat.
 
 The Phase 3 CLI is publish-ready but not published to npm. See [`docs/phase-3-report.md`](phase-3-report.md). Public package publication and server-backed device login remain separate authorized actions.
+
+The Phase 4 badge is live but conservative by default. See [`docs/phase-4-report.md`](phase-4-report.md). It does not claim proof until an audited public metadata source is configured.
